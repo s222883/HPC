@@ -104,8 +104,15 @@ main(int argc, char *argv[]) {
 	#ifndef _OPENMP
 	int it=gauss_seidel(u,u_aux,f,N,iter_max,&tolerance);
 	printf("%d           %d                  %lf                  ",N,it,tolerance);
+	#else
+	gauss_seidel(u,u_aux,f,N,iter_max);
+	#pragma omp single
+	{
+	printf("%d           %d       ",N,iter_max);	
+	}
 	#endif
 	#endif
+	
 
 	} /* end of parallel */
 

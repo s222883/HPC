@@ -76,13 +76,18 @@ main(int argc, char *argv[]) {
 	}
 	
 	
-	#pragma omp parallel default(none) shared(u,u_aux,f,N,start_T,tolerance,iter_max)// private(it)
+	#pragma omp parallel default(none) shared(u,u_aux,f,N,start_T,tolerance,iter_max,t1)
 	{
 	
 	// defining f and initializing first guess and initializing boundary conditions
 	init(u,u_aux,f,N,start_T);
+	
+	// start timer
 	#ifdef _OPENMP 
+	#pragma omp master
+	{
 	t1=omp_get_wtime();
+	} /* end of master */
 	#else
 	t1=clock();
 	#endif
@@ -91,26 +96,25 @@ main(int argc, char *argv[]) {
 	#pragma omp single
 	{
 	int it=jacobi(u,u_aux,f,N,iter_max,&tolerance);
-	printf("%d           %d                  %lf                 %d ",N,it,tolerance);
+	printf("%d           %d                  %lf     ",N,it,tolerance);
 	} /* end of omp single */
 	#endif
     
 	#ifdef _GAUSS_SEIDEL
-	#pragma omp single// nowait
-	{
+	#ifndef _OPENMP
 	int it=gauss_seidel(u,u_aux,f,N,iter_max,&tolerance);
-	printf("%d           %d                  %lf                  ",N,it,tolerance);	
-	} /* end of omp single */
+	printf("%d           %d                  %lf                  ",N,it,tolerance);
+	#endif
 	#endif
 
 	} /* end of parallel */
 
 	#ifdef _OPENMP
 	t2=omp_get_wtime();
-	printf("%lf\n",t2-t1);
+	printf("%lf			%d\n",t2-t1,cores);
 	#else
 	t2=clock();
-	printf("%lf			%d\n",(double) (t2-t1)/(CLOCKS_PER_SEC, cores));
+	printf("%lf			%d\n",(double) (t2-t1)/(CLOCKS_PER_SEC),cores);
 	#endif
     
     // dump  results if wanted 

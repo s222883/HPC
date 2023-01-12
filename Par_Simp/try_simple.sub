@@ -29,11 +29,11 @@ INIT=0
 
 
 # start the collect command with the above settings
-echo "Probblem size    Iterations     Distance      Wall time" >> jac_par_close.dat
 for C in {2..24..4}
 do
+	echo "Probblem size    Iterations     Distance      Wall time" >> jac_par_simple_$C.dat
 	for S in $SIZES
 	do
-		OMP_NUM_THREADS=$C ./$EXECUTABLE $S $MAX_IT $TOL $INIT >> jac_par_close.dat
+		OMP_NUM_THREADS=$C ./$EXECUTABLE $S $MAX_IT $TOL $INIT >> jac_par_simple_$C.dat
 	done
 done

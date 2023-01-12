@@ -1,39 +1,15 @@
-20           10000                  0.000000                  1.457873
-50           10000                  0.000000                  2.103589
-100           10000                  0.046206                  11.178991
-150           10000                  0.548834                  37.325486
-200           10000                  1.234518                  102.395153
-250           10000                  1.786953                  199.004831
-20           10000                  0.000000                  1.693596
-50           10000                  0.000000                  2.163086
-100           10000                  0.046206                  10.602667
-150           10000                  0.548834                  35.317257
-200           10000                  1.234518                  95.692864
-250           10000                  1.786953                  193.953693
-20           10000                  0.000000                  2.135212
-50           10000                  0.000000                  2.248561
-100           10000                  0.046206                  10.420265
-150           10000                  0.548834                  33.261796
-200           10000                  1.234518                  92.761366
-250           10000                  1.786953                  196.027485
-20           10000                  0.000000                  2.315900
-50           10000                  0.000000                  2.425443
-100           10000                  0.046206                  9.887301
-150           10000                  0.548834                  32.050645
-200           10000                  1.234518                  93.229948
-250           10000                  1.786953                  190.417147
 
 ------------------------------------------------------------
 Sender: LSF System <lsfadmin@hpc.dtu.dk>
-Subject: Job 15174398: <par> in cluster <dcc> Done
+Subject: Job 15175486: <par> in cluster <dcc> Exited
 
-Job <par> was submitted from host <n-62-30-6> by user <s222883> in cluster <dcc> at Thu Jan 12 12:57:50 2023
-Job was executed on host(s) <24*n-62-21-77>, in queue <hpcintro>, as user <s222883> in cluster <dcc> at Thu Jan 12 13:01:38 2023
-</zhome/58/f/181392> was used as the home directory.
-</zhome/58/f/181392/DTU/HPC/Assignment2/Par> was used as the working directory.
-Started at Thu Jan 12 13:01:38 2023
-Terminated at Thu Jan 12 13:24:19 2023
-Results reported at Thu Jan 12 13:24:19 2023
+Job <par> was submitted from host <n-62-30-1> by user <s222930> in cluster <dcc> at Thu Jan 12 16:17:42 2023
+Job was executed on host(s) <24*n-62-21-5>, in queue <hpcintro>, as user <s222930> in cluster <dcc> at Thu Jan 12 16:17:44 2023
+</zhome/d4/9/181446> was used as the home directory.
+</zhome/d4/9/181446/workspace/HPC/Par> was used as the working directory.
+Started at Thu Jan 12 16:17:44 2023
+Terminated at Thu Jan 12 16:22:17 2023
+Results reported at Thu Jan 12 16:22:17 2023
 
 Your job looked like:
 
@@ -57,10 +33,11 @@ Your job looked like:
 #BSUB -W 60
 #BSUB -R "span[hosts=1]"
 
+export OMP_PROC_BIND=close
+
 EXECUTABLE=poisson_j
 
-SIZES="20 50 100 150 200 250"
-CORES="18 20 22 24"
+SIZES="20 50 100 150 200"
 MAX_IT="10000"
 TOL=1e-2
 INIT=0
@@ -69,31 +46,32 @@ INIT=0
 
 
 # start the collect command with the above settings
-for C in $CORES
+echo "Probblem size    Iterations     Distance      Wall time     Cores\n" >> jac_par_close.dat
+for C in {2..24..4}
 do
-	echo "#Probblem size    Iterations     Distance      Wall time\n" >> jac_par_$C.dat
 	for S in $SIZES
 	do
-		OMP_NUM_THREADS=$C ./$EXECUTABLE $S $MAX_IT $TOL $INIT 4>> jac_par_$C.dat
+		OMP_NUM_THREADS=$C ./$EXECUTABLE $S $MAX_IT $TOL $INIT 4 $C >> jac_par_close.dat
 	done
 done
 
 ------------------------------------------------------------
 
-Successfully completed.
+TERM_OWNER: job killed by owner.
+Exited with exit code 130.
 
 Resource usage summary:
 
-    CPU time :                                   26116.49 sec.
-    Max Memory :                                 373 MB
-    Average Memory :                             260.58 MB
+    CPU time :                                   343.74 sec.
+    Max Memory :                                 87 MB
+    Average Memory :                             75.00 MB
     Total Requested Memory :                     49152.00 MB
-    Delta Memory :                               48779.00 MB
+    Delta Memory :                               49065.00 MB
     Max Swap :                                   -
     Max Processes :                              4
-    Max Threads :                                28
-    Run time :                                   1361 sec.
-    Turnaround time :                            1589 sec.
+    Max Threads :                                6
+    Run time :                                   273 sec.
+    Turnaround time :                            275 sec.
 
 The output (if any) is above this job summary.
 

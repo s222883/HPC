@@ -40,36 +40,42 @@ jacobi(double ***u,double ***u_aux,double ***f,int N,int iter_max,double *tol) {
 	int it=0;
 	
 	while (it<iter_max){
-		// copy u to u_aux
-		#pragma omp parallel for default(none) private(i,j,k) shared(u,u_aux,N,h,f,pp) collapse(2)
-		for (i=1;i<=N;i++){
-			for (j=1;j<=N;j++){
-					double* aux_1 = u_aux[i][j];
-					double* aux_2 = u[i][j];
-				for (k=1;k<=N;k++){
-					aux_1[k]=aux_2[k];
+
+		#pragma omp parallel default(none) private(i,j,k) shared(u,u_aux,N,h,f,pp) 
+		{
+			// copy u to u_aux
+			#pragma omp for collapse(2)
+			for (i=1;i<=N;i++){
+				for (j=1;j<=N;j++){
+						double* aux_1 = u_aux[i][j];
+						double* aux_2 = u[i][j];
+					for (k=1;k<=N;k++){
+						aux_1[k]=aux_2[k];
+					}
 				}
 			}
-		}
-		
-		// updating u
-		#pragma omp parallel for default(none) private(i,j,k) shared(u,u_aux,N,h,f,pp) collapse(2)
-		for (i=1;i<=N;i++){
-			for (j=1;j<=N;j++){
-				double* x_1 = u_aux[i - 1][j];
-				double* x_2 = u_aux[i + 1][j];
-				double* x_3 = u_aux[i][j - 1];
-				double* x_4 = u_aux[i][j - 1];
-				double* x_5 = u_aux[i][j];
-				double* x_6 = f[i][j];
-				for (k=1;k<=N;k++){
-					u[i][j][k]=(x_1[k]+x_2[k]+x_3[k]+x_4[k]+x_5[k-1]+x_5[k+1]+h*h*x_6[k] )*pp;
+			
+			// updating u
+			#pragma omp for collapse(2)
+			for (i=1;i<=N;i++){
+				for (j=1;j<=N;j++){
+					double* x_1 = u_aux[i - 1][j];
+					double* x_2 = u_aux[i + 1][j];
+					double* x_3 = u_aux[i][j - 1];
+					double* x_4 = u_aux[i][j - 1];
+					double* x_5 = u_aux[i][j];
+					double* x_6 = f[i][j];
+					double* x = u[i][j];
+					for (k=1;k<=N;k++){
+						x[k]=(x_1[k]+x_2[k]+x_3[k]+x_4[k]+x_5[k-1]+x_5[k+1]+h*h*x_6[k] )*pp;
+					}
 				}
 			}
-		}
-		
-		d=norm(u,u_aux,N);
-		it++;
+			
+		} // End of parra
+			d=norm(u,u_aux,N);
+			it++;
+
 	}
 	*tol=d;
 	return it;

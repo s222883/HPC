@@ -48,7 +48,7 @@ gauss_seidel(double ***u,double ***u_aux,double ***f,int N,int iter_max,double *
 		for (i=1;i<=N;i++){
 			for (j=1;j<=N;j++){
 				for (k=1;k<=N;k++){
-					u[i][j][k]=(u[i-1][j][k]+u_aux[i+1][j][k]+u[i][j-1][k]+u_aux[i][j+1][k]+u[i][j][k-1]+u_aux[i][j][k+1]+h*h*f[i][j][k])*pp;
+					u[i][j][k]=(u[i-1][j][k]+u[i+1][j][k]+u[i][j-1][k]+u[i][j+1][k]+u[i][j][k-1]+u[i][j][k+1]+h*h*f[i][j][k])*pp;
 				}
 			}
 		}

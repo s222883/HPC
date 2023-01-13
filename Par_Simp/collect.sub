@@ -25,9 +25,15 @@ export OMP_DISPLAY_ENV=verbose
 export OMP_WAIT_POLICY=active
 CORES="1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24"
 
+i=1
+FOLDER="analyzer"
+while [ -e $FOLDER$i ]; do
+   let "i++"
+done
+mkdir $FOLDER$i
 
 for C in $CORES
 do
     export OMP_NUM_THREADS=$C
-    collect -o $C.er -p on -S on -h dcm -h l2m -h l3m ./$EXECUTABLE $EXECOPTS $C
+    collect -o $FOLDER$i/$C.er -p on -S on -h dcm -h l2m -h l3m ./$EXECUTABLE $EXECOPTS $C
 done

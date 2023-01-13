@@ -8,3 +8,8 @@
 !Makefile
 !*sub
 !*.zip
+!/exp_200/
+!/exp_200/mej/
+!/exp_200/mej/*er/
+!/exp_200/mej/*er/*
+!/exp_200/mej/*.out

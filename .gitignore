@@ -1,4 +1,8 @@
 *
+!Par/
+!Par_Simp/
+!/Ser
 !*.c
 !*.h
-!*Make
+!Makefile
+!*sub

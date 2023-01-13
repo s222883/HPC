@@ -62,7 +62,7 @@ jacobi(double ***u,double ***u_aux,double ***f,int N,int iter_max,double *tol) {
 					double* x_1 = u_aux[i - 1][j];
 					double* x_2 = u_aux[i + 1][j];
 					double* x_3 = u_aux[i][j - 1];
-					double* x_4 = u_aux[i][j - 1];
+					double* x_4 = u_aux[i][j + 1];
 					double* x_5 = u_aux[i][j];
 					double* x_6 = f[i][j];
 					double* x = u[i][j];

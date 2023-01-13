@@ -103,7 +103,7 @@ main(int argc, char *argv[]) {
 	#ifdef _GAUSS_SEIDEL
 	#ifndef _OPENMP
 	int it=gauss_seidel(u,u_aux,f,N,iter_max,&tolerance);
-	printf("%d           %d                  %lf                  ",N,it,tolerance);
+	printf("%d           %d                  %lf     ",N,it,tolerance);
 	#endif
 	#endif
 
@@ -111,10 +111,10 @@ main(int argc, char *argv[]) {
 
 	#ifdef _OPENMP
 	t2=omp_get_wtime();
-	printf("%lf			%d\n",t2-t1,cores);
+	printf("%lf              %d\n",t2-t1,cores);
 	#else
 	t2=clock();
-	printf("%lf			%d\n",(double) (t2-t1)/(CLOCKS_PER_SEC),cores);
+	printf("%lf              %d\n",(double) (t2-t1)/(CLOCKS_PER_SEC),cores);
 	#endif
     
     // dump  results if wanted 

@@ -1,0 +1,11 @@
+### Start Fri Jan 13 16:11:09 2023
+# /opt/oracle/developerstudio12.6/bin/../bin/er_archive -n -O /zhome/d3/c/184297/dtu-sny/02614-HPC/Assignment2/git/v2/HPC/Par_Simp/2.er/er_archive.log /zhome/d3/c/184297/dtu-sny/02614-HPC/Assignment2/git/v2/HPC/Par_Simp/2.er
+Copying `/zhome/d3/c/184297/dtu-sny/02614-HPC/Assignment2/git/v2/HPC/Par_Simp/poisson_j'  to `/zhome/d3/c/184297/dtu-sny/02614-HPC/Assignment2/git/v2/HPC/Par_Simp/2.er/archives/poisson_j__tLoRpGt_h0'
+Copying `/usr/lib64/librt-2.17.so'  to `/zhome/d3/c/184297/dtu-sny/02614-HPC/Assignment2/git/v2/HPC/Par_Simp/2.er/archives/librt-2.17.so_OCEC1bthLm2'
+Copying `/usr/lib64/libdl-2.17.so'  to `/zhome/d3/c/184297/dtu-sny/02614-HPC/Assignment2/git/v2/HPC/Par_Simp/2.er/archives/libdl-2.17.so_OCEC1bthLm2'
+Copying `/usr/lib64/libc-2.17.so'  to `/zhome/d3/c/184297/dtu-sny/02614-HPC/Assignment2/git/v2/HPC/Par_Simp/2.er/archives/libc-2.17.so_OCEC1bthLm2'
+Copying `/usr/lib64/libpthread-2.17.so'  to `/zhome/d3/c/184297/dtu-sny/02614-HPC/Assignment2/git/v2/HPC/Par_Simp/2.er/archives/libpthread-2.17.so_OCEC1bthLm2'
+Copying `/usr/lib64/libm-2.17.so'  to `/zhome/d3/c/184297/dtu-sny/02614-HPC/Assignment2/git/v2/HPC/Par_Simp/2.er/archives/libm-2.17.so_OCEC1bthLm2'
+Copying `/opt/oracle/developerstudio12.6/lib/analyzer/amd64/runtime/libcollector.so'  to `/zhome/d3/c/184297/dtu-sny/02614-HPC/Assignment2/git/v2/HPC/Par_Simp/2.er/archives/libcollector.so_-C8vWEvanQd'
+Copying `/usr/lib64/ld-2.17.so'  to `/zhome/d3/c/184297/dtu-sny/02614-HPC/Assignment2/git/v2/HPC/Par_Simp/2.er/archives/ld-2.17.so_OCEC1bthLm2'
+Copying `/appl/gcc/10.3.0-binutils-2.36.1/lib64/libgomp.so.1.0.0'  to `/zhome/d3/c/184297/dtu-sny/02614-HPC/Assignment2/git/v2/HPC/Par_Simp/2.er/archives/libgomp.so.1.0.0_XcUJrDTkob2'

@@ -39,7 +39,7 @@ jacobi(double ***u,double ***u_aux,double ***f,int N,int iter_max,double *tol) {
 	
 	while (it<iter_max){
 		// copy u to u_aux
-		#pragma omp parallel for default(none) private(i,j,k) shared(u,u_aux,N)
+		#pragma omp parallel for default(none) private(i,j,k) shared(u,u_aux,N,h,f,pp) collapse(3)
 		for (i=1;i<=N;i++){
 			for (j=1;j<=N;j++){
 				for (k=1;k<=N;k++){
@@ -49,7 +49,7 @@ jacobi(double ***u,double ***u_aux,double ***f,int N,int iter_max,double *tol) {
 		}
 		
 		// updating u
-		#pragma omp parallel for default(none) private(i,j,k) shared(u,u_aux,N,h,f,pp)
+		#pragma omp parallel for default(none) private(i,j,k) shared(u,u_aux,N,h,f,pp) collapse(3)
 		for (i=1;i<=N;i++){
 			for (j=1;j<=N;j++){
 				for (k=1;k<=N;k++){

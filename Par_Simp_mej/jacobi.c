@@ -41,10 +41,8 @@ jacobi(double ***u,double ***u_aux,double ***f,int N,int iter_max,double *tol) {
 	
 	while (it<iter_max){
 
-		#pragma omp parallel default(none) private(i,j,k) shared(u,u_aux,N,h,f,pp) 
-		{
 			// copy u to u_aux
-			#pragma omp for collapse(2)
+			#pragma omp parallel for default(none) private(i,j,k) shared(u,u_aux,N,h,f,pp) collapse(2)
 			for (i=1;i<=N;i++){
 				for (j=1;j<=N;j++){
 						double* aux_1 = u_aux[i][j];
@@ -56,7 +54,7 @@ jacobi(double ***u,double ***u_aux,double ***f,int N,int iter_max,double *tol) {
 			}
 			
 			// updating u
-			#pragma omp for collapse(2)
+			#pragma omp parallel for default(none) private(i,j,k) shared(u,u_aux,N,h,f,pp) collapse(2)
 			for (i=1;i<=N;i++){
 				for (j=1;j<=N;j++){
 					double* x_1 = u_aux[i - 1][j];
@@ -72,7 +70,6 @@ jacobi(double ***u,double ***u_aux,double ***f,int N,int iter_max,double *tol) {
 				}
 			}
 			
-		} // End of parra
 			d=norm(u,u_aux,N);
 			it++;
 

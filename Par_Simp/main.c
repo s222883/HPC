@@ -30,6 +30,7 @@ main(int argc, char *argv[]) {
     int 	iter_max = 1000;
     double	tolerance;
     double	start_T;
+	int cores;
     int		output_type = 0;
     char	*output_prefix = "poisson_res";
     char        *output_ext    = "";
@@ -47,8 +48,9 @@ main(int argc, char *argv[]) {
     iter_max  = atoi(argv[2]);  // max. no. of iterations
     tolerance = atof(argv[3]);  // tolerance
     start_T   = atof(argv[4]);  // start T for all inner grid points
-    if (argc == 6) {
+    if (argc == 7) {
 	output_type = atoi(argv[5]);  // ouput type
+	cores = atoi(argv[6]);
     }
     
 	
@@ -94,7 +96,7 @@ main(int argc, char *argv[]) {
 
 	#ifdef _OPENMP
 	t2=omp_get_wtime();
-	printf("%lf\n",t2-t1);
+	printf("%lf     %d \n",t2-t1, cores);
 	#else
 	t2=clock();
 	printf("%lf\n",(double) (t2-t1)/(CLOCKS_PER_SEC));

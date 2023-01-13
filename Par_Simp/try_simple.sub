@@ -16,12 +16,12 @@
 #BSUB -W 60
 #BSUB -R "span[hosts=1]"
 
-export OMP_PROC_BIND=close
+#export OMP_PROC_BIND=close
 
 EXECUTABLE=poisson_j
 
 SIZES="20 50 100 150 200"
-MAX_IT="10000"
+MAX_IT="4000"
 TOL=1e-2
 INIT=0
 
@@ -29,11 +29,11 @@ INIT=0
 
 
 # start the collect command with the above settings
-for C in {2..24..4}
+echo "ProblemSize,Iterations,Distance,Walltime,Cores" >> jac_par_simple.dat
+for C in 1
 do
-	echo "Probblem size    Iterations     Distance      Wall time" >> jac_par_simple_$C.dat
 	for S in $SIZES
 	do
-		OMP_NUM_THREADS=$C ./$EXECUTABLE $S $MAX_IT $TOL $INIT >> jac_par_simple_$C.dat
+		OMP_NUM_THREADS=$C ./$EXECUTABLE $S $MAX_IT $TOL $INIT 0 $C >> jac_par_simple.dat
 	done
 done

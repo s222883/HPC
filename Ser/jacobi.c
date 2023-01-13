@@ -15,7 +15,6 @@ double norm(double ***a,double ***b,int N){
 	double sum=0.0;
 	int i,j,k;
 
-	#pragma omp taskloop default(none) shared(a,b,N) private(i,j,k) reduction(+:sum)
 	for (i=1;i<=N;i++){
 		for (j=1;j<=N;j++){
 			for (k=1;k<=N;k++){

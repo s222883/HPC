@@ -30,7 +30,7 @@ main(int argc, char *argv[]) {
     int 	iter_max = 1000;
     double	tolerance;
     double	start_T;
-	int cores = 0;
+	int cores;
     int		output_type = 0;
     char	*output_prefix = "poisson_res";
     char        *output_ext    = "";
@@ -87,12 +87,13 @@ main(int argc, char *argv[]) {
 
 	#ifdef _JACOBI
 	int it=jacobi(u,u_aux,f,N,iter_max,&tolerance);
-	printf("%d           %d                  %lf                  ",N,it,tolerance);
 	#endif
     
 	#ifdef _GAUSS_SEIDEL
 	int it=gauss_seidel(u,u_aux,f,N,iter_max,&tolerance);
 	#endif
+
+	printf("%d           %d                  %lf                  ",N,it,tolerance);
 
 	#ifdef _OPENMP
 	t2=omp_get_wtime();

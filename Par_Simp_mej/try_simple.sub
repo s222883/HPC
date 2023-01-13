@@ -20,20 +20,20 @@
 
 EXECUTABLE=poisson_j
 
-SIZES="20 50 100 150 200"
+SIZES="200"
 MAX_IT="4000"
 TOL=1e-2
 INIT=0
 
-
+export OMP_PROC_BIND=spread
 
 
 # start the collect command with the above settings
-echo "ProblemSize,Iterations,Distance,Walltime,Cores" >> jac_par_simple.dat
-for C in 1
+echo "ProblemSize,Iterations,Distance,Walltime,Cores" >> jac_le.dat
+for C in 12
 do
 	for S in $SIZES
 	do
-		OMP_NUM_THREADS=$C ./$EXECUTABLE $S $MAX_IT $TOL $INIT 0 $C >> jac_par_simple.dat
+		OMP_NUM_THREADS=$C ./$EXECUTABLE $S $MAX_IT $TOL $INIT 4 $C >> jac_le.dat
 	done
 done

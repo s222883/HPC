@@ -6,7 +6,7 @@
 # queue
 #
 
-#BSUB -J par
+#BSUB -J gauss	
 #BSUB -oo par.out
 #BSUB -eo par.err
 #BSUB -q hpcintro
@@ -18,9 +18,12 @@
 
 #export OMP_PROC_BIND=close
 
-EXECUTABLE=poisson_j
+EXECUTABLE=poisson_gs
 
-SIZES="200"
+#SIZES="10 20 40 50 75 100 150 200"
+SIZES="100"
+#CORES="2 4 6 8 10 12 14 16 18 20 22 24"
+CORES="10"
 MAX_IT="4000"
 TOL=1e-2
 INIT=0
@@ -29,11 +32,11 @@ export OMP_PROC_BIND=spread
 
 
 # start the collect command with the above settings
-echo "ProblemSize,Iterations,Distance,Walltime,Cores" >> jac_le.dat
-for C in 12
+echo "ProblemSize,Iterations,Distance,Walltime,Cores" >> gauss.dat
+for C in $CORES
 do
 	for S in $SIZES
 	do
-		OMP_NUM_THREADS=$C ./$EXECUTABLE $S $MAX_IT $TOL $INIT 4 $C >> jac_le.dat
+		OMP_NUM_THREADS=$C ./$EXECUTABLE $S $MAX_IT $TOL $INIT 0 $C >> gauss.dat
 	done
 done
